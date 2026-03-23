@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ENTERPRISE
+  MEMBER
+  ADMIN
+}
+
+enum CaseStatus {
+  DRAFT
+  UNDER_REVIEW
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum ApplicationStatus {
+  NEW
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum BudgetRange {
+  UNDER_1M
+  UNDER_3M
+  UNDER_5M
+  UNDER_10M
+  OVER_10M
+  UNDECIDED
+}
+
+enum TargetAudience {
+  UNIVERSITY
+  COMPANY
+  BOTH
+}
+
+model User {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  passwordHash     String
+  name             String
+  organizationName String
+  organizationLogo String?
+  organizationDesc String?   @db.Text
+  role             UserRole
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  cases        UseCase[]       @relation("creator")
+  proxyCases   UseCase[]       @relation("proxyCreator")
+  applications Application[]
+  activityLogs ActivityLog[]
+
+  @@map("users")
+}
+
+model UseCase {
+  id             String          @id @default(cuid())
+  title          String
+  companyName    String
+  coverImage     String?
+  summary        String          @db.Text
+  challenge      String          @db.Text
+  expectedDev    String?         @db.Text
+  industry       String?
+  technologies   String[]
+  budgetRange    BudgetRange?
+  targetAudience TargetAudience?
+  notes          String?         @db.Text
+  adminNotes     String?         @db.Text
+
+  status      CaseStatus @default(DRAFT)
+  isPublished Boolean    @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdBy        User   @relation("creator", fields: [createdById], references: [id])
+  createdById      String
+  proxyCreatedBy   User?  @relation("proxyCreator", fields: [proxyCreatedById], references: [id])
+  proxyCreatedById String?
+
+  applications Application[]
+  activityLogs ActivityLog[]
+
+  @@map("use_cases")
+}
+
+model Application {
+  id               String            @id @default(cuid())
+  organizationName String
+  contactName      String
+  contactEmail     String
+  proposalSummary  String            @db.Text
+  message          String?           @db.Text
+  status           ApplicationStatus @default(NEW)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  useCase     UseCase @relation(fields: [useCaseId], references: [id])
+  useCaseId   String
+  applicant   User    @relation(fields: [applicantId], references: [id])
+  applicantId String
+
+  @@unique([useCaseId, applicantId])
+  @@map("applications")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  action    String
+  detail    String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  useCase   UseCase? @relation(fields: [useCaseId], references: [id])
+  useCaseId String?
+
+  @@map("activity_logs")
+}
