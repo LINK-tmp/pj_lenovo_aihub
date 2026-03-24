@@ -142,7 +142,4 @@
   .gradient-brand-2-hover:hover {
     background: linear-gradient(to right, var(--color-brand-wine-hover), var(--color-brand-purple-hover));
   }
-  .gradient-brand-line {
-    background: linear-gradient(to right, var(--color-brand-wine), var(--color-brand-purple));
-  }
 }

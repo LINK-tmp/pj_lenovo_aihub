@@ -107,7 +107,7 @@ model Application {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  useCase     UseCase @relation(fields: [useCaseId], references: [id])
+  useCase     UseCase @relation(fields: [useCaseId], references: [id], onDelete: Cascade)
   useCaseId   String
   applicant   User    @relation(fields: [applicantId], references: [id])
   applicantId String
@@ -124,7 +124,7 @@ model ActivityLog {
 
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  useCase   UseCase? @relation(fields: [useCaseId], references: [id])
+  useCase   UseCase? @relation(fields: [useCaseId], references: [id], onDelete: SetNull)
   useCaseId String?
 
   @@map("activity_logs")

@@ -26,7 +26,13 @@ export default async function MemberCaseDetailPage({
 
   const [useCase, existingApplication] = await Promise.all([
     prisma.useCase.findUnique({
-      where: { id, isPublished: true },
+      where: {
+        id,
+        OR: [
+          { isPublished: true },
+          { applications: { some: { applicantId: session?.user?.id } } },
+        ],
+      },
       include: { _count: { select: { applications: true } } },
     }),
     session?.user
@@ -140,19 +146,23 @@ export default async function MemberCaseDetailPage({
                 <Check className="w-4 h-4" />
                 応募済み
               </div>
-            ) : (
+            ) : useCase.status === "OPEN" ? (
               <Link href={`/member/${id}/apply`}>
                 <Button className="w-full h-12 gradient-brand-2 gradient-brand-2-hover text-white text-base font-bold shadow-lg hover:shadow-xl transition-all">
                   応募する
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
+            ) : (
+              <div className="w-full bg-surface-light text-brand-gray rounded-lg py-3 text-center text-sm">
+                現在募集を受け付けていません
+              </div>
             )}
           </div>
         </div>
       </div>
 
-      {!existingApplication && (
+      {!existingApplication && useCase.status === "OPEN" && (
         <div className="fixed bottom-0 left-0 right-0 lg:hidden gradient-brand-2 p-4 shadow-[0_-4px_12px_rgba(0,0,0,0.1)] z-40">
           <Link href={`/member/${id}/apply`}>
             <Button className="w-full h-12 bg-white text-brand-dark text-base font-bold shadow-lg hover:shadow-xl transition-all">

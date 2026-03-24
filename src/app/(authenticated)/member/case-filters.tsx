@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -28,6 +28,7 @@ export function CaseFilters({
 }: CaseFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [query, setQuery] = useState(currentQuery || "");
 
   const updateParam = useCallback(
     (key: string, value: string | null) => {
@@ -37,12 +38,14 @@ export function CaseFilters({
       } else {
         params.delete(key);
       }
+      if (key !== "page") params.delete("page");
       router.push(`/member?${params.toString()}`);
     },
     [router, searchParams]
   );
 
   const clearAll = () => {
+    setQuery("");
     router.push("/member");
   };
 
@@ -55,11 +58,12 @@ export function CaseFilters({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray" />
           <Input
             placeholder="キーワードで検索..."
-            defaultValue={currentQuery}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             className="pl-9 h-9"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                updateParam("q", (e.target as HTMLInputElement).value || null);
+                updateParam("q", query || null);
               }
             }}
           />

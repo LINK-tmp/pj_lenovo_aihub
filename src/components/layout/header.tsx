@@ -49,8 +49,7 @@ export function Header({ userName, organizationName, role }: HeaderProps) {
     <header className="sticky top-0 z-50 gradient-brand shadow-lg">
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 h-[60px] flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="w-1 h-8 bg-white/80 rounded-full" />
+        <Link href={NAV_ITEMS[role][0].href} className="flex items-center gap-2 shrink-0">
           <div>
             <div className="text-base font-bold text-white leading-tight">
               関西AI Hub

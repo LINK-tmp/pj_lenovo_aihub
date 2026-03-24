@@ -64,7 +64,7 @@ export default function NewUseCasePage() {
         ダッシュボードに戻る
       </Link>
 
-      <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-3 mb-6">
+      <h1 className="text-xl font-semibold font-heading tracking-wide mb-6">
         ユースケース新規登録
       </h1>
 
@@ -98,7 +98,7 @@ export default function NewUseCasePage() {
         </div>
 
         <div className="border-t border-border-default p-6 space-y-5 bg-surface-off-white/50">
-          <h3 className="text-sm font-bold text-brand-dark border-l-[3px] border-brand-wine pl-3">分類情報</h3>
+          <h3 className="text-sm font-bold text-brand-dark">分類情報</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">

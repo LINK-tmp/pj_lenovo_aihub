@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 関西AI Hub
 
-## Getting Started
+関西圏の企業課題と技術シーズをつなぐ情報流通プラットフォーム
 
-First, run the development server:
+## 技術スタック
+
+- Next.js 16 / React 19 / TypeScript
+- Prisma + PostgreSQL
+- NextAuth.js v5（認証）
+- Tailwind CSS v4 + shadcn/ui
+- Docker Compose（ローカル環境）
+
+---
+
+## セットアップ
+
+### 方法 1: Docker（推奨）
+
+Docker Desktop がインストールされていれば、コマンド 2 つで起動できます。
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. 起動（初回はビルドに数分かかります）
+docker compose up -d
+
+# 2. デモデータを投入
+docker compose run --rm seed
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 でアクセスできます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# 停止
+docker compose down
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# データも含めて完全リセット
+docker compose down -v
+```
 
-## Learn More
+### 方法 2: ローカル（Node.js + PostgreSQL）
 
-To learn more about Next.js, take a look at the following resources:
+**前提条件**
+- Node.js 20+
+- PostgreSQL 16+（起動済み）
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# 1. 依存パッケージをインストール
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 2. 環境変数を設定
+cp .env.example .env
+# 必要に応じて DATABASE_URL を編集
 
-## Deploy on Vercel
+# 3. データベースをセットアップ
+npx prisma migrate dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 4. デモデータを投入
+npx prisma db seed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 5. 開発サーバーを起動
+npm run dev
+```
+
+http://localhost:3000 でアクセスできます。
+
+---
+
+## デモアカウント
+
+シード実行後、以下のアカウントでログインできます。
+
+| ロール | メールアドレス | パスワード | 説明 |
+|--------|---------------|-----------|------|
+| 事務局（Admin） | `admin@kansai-aihub.jp` | `admin123` | 全案件・応募の管理、代理登録が可能 |
+| 企業（Enterprise） | `enterprise@example.co.jp` | `pass123` | ユースケースの投稿・管理が可能 |
+| 会員（Member） | `member@example.ac.jp` | `pass123` | 公開案件の閲覧・応募が可能 |
+
+---
+
+## 主な機能
+
+- **企業** — ユースケース（課題）を登録し、応募を受け付ける
+- **会員** — 公開された案件を閲覧し、提案・応募する
+- **事務局** — 案件の審査・公開管理、応募ステータスの更新、代理登録
+
+---
+
+## 開発コマンド
+
+```bash
+npm run dev          # 開発サーバー起動
+npm run build        # プロダクションビルド
+npm run lint         # ESLint 実行
+npx prisma studio    # DB の GUI ブラウザを起動
+npx prisma db seed   # デモデータを再投入
+npx prisma db push   # スキーマ変更を DB に反映（マイグレーションなし）
+```

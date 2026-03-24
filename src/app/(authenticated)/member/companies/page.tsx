@@ -20,7 +20,7 @@ export default async function CompaniesPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-wine pl-3 mb-2">
+      <h1 className="text-xl font-semibold font-heading tracking-wide mb-2">
         参加企業一覧
       </h1>
       <p className="text-sm text-brand-gray mb-8">

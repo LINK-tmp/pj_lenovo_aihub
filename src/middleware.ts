@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
       if (token?.role) {
         const role = token.role as string;
         return NextResponse.redirect(
-          new URL(ROLE_ROUTES[role] || "/", req.url)
+          new URL(ROLE_ROUTES[role] || "/login", req.url)
         );
       }
     }
@@ -40,14 +40,15 @@ export async function middleware(req: NextRequest) {
   const role = token.role as string;
 
   // Role-based route protection
+  const redirect = ROLE_ROUTES[role] || "/login";
   if (pathname.startsWith("/enterprise") && role !== "ENTERPRISE") {
-    return NextResponse.redirect(new URL(ROLE_ROUTES[role], req.url));
+    return NextResponse.redirect(new URL(redirect, req.url));
   }
   if (pathname.startsWith("/member") && role !== "MEMBER") {
-    return NextResponse.redirect(new URL(ROLE_ROUTES[role], req.url));
+    return NextResponse.redirect(new URL(redirect, req.url));
   }
   if (pathname.startsWith("/admin") && role !== "ADMIN") {
-    return NextResponse.redirect(new URL(ROLE_ROUTES[role], req.url));
+    return NextResponse.redirect(new URL(redirect, req.url));
   }
 
   return NextResponse.next();

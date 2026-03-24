@@ -4,8 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { CaseCard } from "@/components/cases/case-card";
-import { Button } from "@/components/ui/button";
-import { Building2, ArrowLeft, Calendar } from "lucide-react";
+import { Building2, ArrowLeft } from "lucide-react";
 
 export default async function CompanyDetailPage({
   params,
@@ -54,16 +53,10 @@ export default async function CompanyDetailPage({
               公開案件: {company.cases.length}件
             </p>
           </div>
-          <Link href={`/member/meetings?hostId=${company.id}&hostName=${encodeURIComponent(company.organizationName)}`}>
-            <Button className="bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-sm">
-              <Calendar className="w-4 h-4 mr-2" />
-              面談を予約
-            </Button>
-          </Link>
         </div>
       </div>
 
-      <h2 className="text-lg font-semibold font-heading tracking-wide border-l-4 border-brand-wine pl-3 mb-6">
+      <h2 className="text-lg font-semibold font-heading tracking-wide mb-6">
         公開中のユースケース
       </h2>
 
@@ -78,7 +71,6 @@ export default async function CompanyDetailPage({
           {company.cases.map((c) => (
             <CaseCard
               key={c.id}
-              id={c.id}
               title={c.title}
               companyName={c.companyName}
               status={c.status}

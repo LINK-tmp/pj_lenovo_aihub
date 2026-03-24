@@ -37,7 +37,7 @@ export function ApplicationStatusChanger({
   }
 
   return (
-    <Select defaultValue={currentStatus} onValueChange={handleChange}>
+    <Select key={currentStatus} defaultValue={currentStatus} onValueChange={handleChange}>
       <SelectTrigger
         className="w-[120px] h-8 text-xs"
         onClick={(e) => e.stopPropagation()}

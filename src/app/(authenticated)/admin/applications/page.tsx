@@ -38,7 +38,7 @@ export default async function AdminApplicationsPage({
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-3">
+        <h1 className="text-xl font-semibold font-heading tracking-wide">
           応募管理
         </h1>
         <span className="text-sm text-brand-gray">{totalCount}件</span>

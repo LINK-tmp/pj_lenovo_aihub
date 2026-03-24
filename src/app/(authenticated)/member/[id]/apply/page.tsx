@@ -47,7 +47,7 @@ export default function ApplyPage() {
         案件詳細に戻る
       </Link>
 
-      <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-3 mb-6">
+      <h1 className="text-xl font-semibold font-heading tracking-wide mb-6">
         応募・提案の送信
       </h1>
 

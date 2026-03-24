@@ -40,7 +40,7 @@ export function StatusChanger({
   return (
     <div className="flex items-center gap-3">
       <span className="text-sm text-brand-gray">ステータス:</span>
-      <Select defaultValue={currentStatus} onValueChange={handleChange}>
+      <Select key={currentStatus} defaultValue={currentStatus} onValueChange={handleChange}>
         <SelectTrigger className="w-[180px]">
           <SelectValue />
         </SelectTrigger>

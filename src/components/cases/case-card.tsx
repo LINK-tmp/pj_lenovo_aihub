@@ -11,7 +11,6 @@ import { format, differenceInDays } from "date-fns";
 import { Users, Wallet } from "lucide-react";
 
 interface CaseCardProps {
-  id: string;
   title: string;
   companyName: string;
   status: CaseStatus;

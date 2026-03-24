@@ -84,7 +84,7 @@ export default async function AdminCaseDetailPage({
 
       {/* Case Info */}
       <div className="bg-white border border-border-default rounded-lg p-5 mb-8 space-y-3">
-        <h2 className="text-sm font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-2">
+        <h2 className="text-sm font-semibold font-heading tracking-wide">
           案件情報
         </h2>
         <div className="text-sm space-y-2">
@@ -121,7 +121,7 @@ export default async function AdminCaseDetailPage({
       </div>
 
       {/* Applications */}
-      <h2 className="text-sm font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-2 mb-3">
+      <h2 className="text-sm font-semibold font-heading tracking-wide mb-3">
         応募者一覧（{useCase.applications.length}件）
       </h2>
 
@@ -193,7 +193,7 @@ export default async function AdminCaseDetailPage({
       )}
 
       {/* Activity Log */}
-      <h2 className="text-sm font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-2 mb-3">
+      <h2 className="text-sm font-semibold font-heading tracking-wide mb-3">
         アクティビティログ
       </h2>
       <div className="space-y-2">

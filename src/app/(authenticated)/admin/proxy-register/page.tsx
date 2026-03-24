@@ -48,7 +48,7 @@ export default function ProxyRegisterPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-3 mb-6">
+      <h1 className="text-xl font-semibold font-heading tracking-wide mb-6">
         案件代理登録
       </h1>
 

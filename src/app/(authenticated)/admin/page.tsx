@@ -68,7 +68,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-wine pl-3 mb-6">
+      <h1 className="text-xl font-semibold font-heading tracking-wide mb-6">
         ダッシュボード
       </h1>
 
@@ -81,7 +81,7 @@ export default async function AdminDashboardPage() {
 
       {alertItems.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold font-heading tracking-wide border-l-4 border-status-review pl-3 mb-3">
+          <h2 className="text-sm font-semibold font-heading tracking-wide mb-3">
             対応が必要なアクション
           </h2>
           <div className="bg-status-review/10 border-l-4 border-status-review rounded-r-lg p-4 space-y-2">
@@ -97,14 +97,14 @@ export default async function AdminDashboardPage() {
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <h2 className="text-sm font-semibold font-heading tracking-wide border-l-4 border-brand-wine pl-3 mb-3">
+          <h2 className="text-sm font-semibold font-heading tracking-wide mb-3">
             最近の登録案件
           </h2>
           <div className="space-y-2">
             {recentCases.map((c) => (
               <div
                 key={c.id}
-                className="flex items-center justify-between bg-white border-l-[3px] border-l-brand-wine border border-border-default rounded-r-lg p-3 hover:shadow-sm transition-shadow"
+                className="flex items-center justify-between bg-white border border-border-default rounded-lg p-3 hover:shadow-sm transition-shadow"
               >
                 <Link
                   href={`/admin/cases/${c.id}`}
@@ -127,14 +127,14 @@ export default async function AdminDashboardPage() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold font-heading tracking-wide border-l-4 border-cta-blue pl-3 mb-3">
+          <h2 className="text-sm font-semibold font-heading tracking-wide mb-3">
             最近の応募
           </h2>
           <div className="space-y-2">
             {recentApps.map((a) => (
               <div
                 key={a.id}
-                className="bg-white border-l-[3px] border-l-cta-blue border border-border-default rounded-r-lg p-3 text-sm hover:shadow-sm transition-shadow"
+                className="bg-white border border-border-default rounded-lg p-3 text-sm hover:shadow-sm transition-shadow"
               >
                 <span className="font-medium">{a.organizationName}</span>
                 <span className="text-brand-gray"> → </span>

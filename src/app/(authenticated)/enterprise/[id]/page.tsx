@@ -111,7 +111,7 @@ export default async function EnterpriseCaseDetailPage({
       </div>
 
       {/* Applications */}
-      <h2 className="text-lg font-semibold font-heading tracking-wide border-l-4 border-brand-red pl-3 mb-4">
+      <h2 className="text-lg font-semibold font-heading tracking-wide mb-4">
         応募状況（{useCase.applications.length}件）
       </h2>
 

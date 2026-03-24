@@ -55,7 +55,6 @@ export default function LoginPage() {
         <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/95">
           <CardHeader className="text-center pb-2 pt-8">
             <div className="mx-auto mb-2">
-              <div className="w-16 h-1 gradient-brand-line rounded-full mx-auto mb-4" />
               <h1 className="text-2xl font-light font-heading text-brand-dark tracking-wider">
                 関西AI Hub
               </h1>

@@ -59,7 +59,7 @@ export default async function EnterpriseDashboardPage({
       </div>
 
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold font-heading tracking-wide border-l-4 border-brand-wine pl-3">
+        <h2 className="text-lg font-semibold font-heading tracking-wide">
           投稿した案件
         </h2>
         <Link href="/enterprise/new">
@@ -84,7 +84,6 @@ export default async function EnterpriseDashboardPage({
             {cases.map((c) => (
               <CaseCard
                 key={c.id}
-                id={c.id}
                 title={c.title}
                 companyName={c.companyName}
                 status={c.status}

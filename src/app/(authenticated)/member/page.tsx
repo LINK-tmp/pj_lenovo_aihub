@@ -59,7 +59,7 @@ export default async function MemberCaseListPage({
 
   return (
     <div>
-      <h1 className="text-xl font-semibold font-heading tracking-wide border-l-4 border-brand-wine pl-3 mb-2">
+      <h1 className="text-xl font-semibold font-heading tracking-wide mb-2">
         公開中のユースケース
       </h1>
       <p className="text-sm text-brand-gray mb-6">
@@ -85,7 +85,6 @@ export default async function MemberCaseListPage({
             {cases.map((c) => (
               <CaseCard
                 key={c.id}
-                id={c.id}
                 title={c.title}
                 companyName={c.companyName}
                 status={c.status}

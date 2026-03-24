@@ -63,8 +63,8 @@ export async function createProxyUseCase(data: Record<string, unknown>) {
 
   const status = publishImmediately ? "OPEN" : "DRAFT";
 
-  const [useCase] = await prisma.$transaction([
-    prisma.useCase.create({
+  const useCase = await prisma.$transaction(async (tx) => {
+    const created = await tx.useCase.create({
       data: {
         ...rest,
         companyName,
@@ -74,16 +74,16 @@ export async function createProxyUseCase(data: Record<string, unknown>) {
         createdById: session.user.id,
         proxyCreatedById: session.user.id,
       },
-    }),
-  ]);
-
-  await prisma.activityLog.create({
-    data: {
-      action: "案件代理登録",
-      detail: `事務局が「${useCase.title}」を${companyName}の代理で登録`,
-      userId: session.user.id,
-      useCaseId: useCase.id,
-    },
+    });
+    await tx.activityLog.create({
+      data: {
+        action: "案件代理登録",
+        detail: `事務局が「${created.title}」を${companyName}の代理で登録`,
+        userId: session.user.id,
+        useCaseId: created.id,
+      },
+    });
+    return created;
   });
 
   revalidatePath("/admin/cases");

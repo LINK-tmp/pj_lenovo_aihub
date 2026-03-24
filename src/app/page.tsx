@@ -10,7 +10,6 @@ export default function PublicTopPage() {
       <header className="sticky top-0 z-50 gradient-brand shadow-lg">
         <div className="max-w-[1200px] mx-auto px-6 h-[60px] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-white/80 rounded-full" />
             <div>
               <div className="text-base font-bold text-white leading-tight tracking-wide">
                 関西AI Hub
@@ -83,7 +82,6 @@ export default function PublicTopPage() {
             <h2 className="text-2xl md:text-3xl font-light tracking-wide">
               関西AI Hubとは
             </h2>
-            <div className="w-12 h-px gradient-brand-line mx-auto mt-4" />
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <FeatureCard
@@ -115,7 +113,6 @@ export default function PublicTopPage() {
             <h2 className="text-2xl md:text-3xl font-light tracking-wide">
               情報の流れ
             </h2>
-            <div className="w-12 h-px gradient-brand-line mx-auto mt-4" />
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-3">
             {[
@@ -148,7 +145,6 @@ export default function PublicTopPage() {
             <h2 className="text-2xl md:text-3xl font-light tracking-wide">
               参加について
             </h2>
-            <div className="w-12 h-px gradient-brand-line mx-auto mt-4" />
           </div>
           <div className="bg-white rounded-2xl p-10 max-w-2xl mx-auto text-center shadow-sm">
             <p className="text-sm text-brand-dark mb-4 leading-relaxed">

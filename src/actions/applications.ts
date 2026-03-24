@@ -14,9 +14,9 @@ export async function createApplication(
   const parsed = applicationSchema.parse(data);
 
   const useCase = await prisma.useCase.findUnique({
-    where: { id: useCaseId, isPublished: true },
+    where: { id: useCaseId, isPublished: true, status: "OPEN" },
   });
-  if (!useCase) throw new Error("この案件は現在公開されていません");
+  if (!useCase) throw new Error("この案件は現在募集を受け付けていません");
 
   const existing = await prisma.application.findUnique({
     where: {

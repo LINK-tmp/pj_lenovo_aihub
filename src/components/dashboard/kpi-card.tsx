@@ -11,7 +11,6 @@ interface KpiCardProps {
 export function KpiCard({ label, value, icon: Icon, colorClass }: KpiCardProps) {
   return (
     <div className="bg-white rounded-2xl border border-border-default overflow-hidden hover:shadow-md transition-shadow">
-      <div className="h-1 gradient-brand-line" />
       <div className="p-4 sm:p-5">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">

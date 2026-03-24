@@ -31,7 +31,7 @@ export function AdminSidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
                 isActive
-                  ? "bg-gradient-to-r from-brand-wine/10 to-brand-purple/5 text-brand-wine font-medium border-l-[3px] border-brand-wine pl-[calc(0.75rem-2px)]"
+                  ? "bg-brand-wine/10 text-brand-wine font-medium"
                   : "text-brand-gray hover:bg-surface-light hover:text-brand-dark"
               }`}
             >
