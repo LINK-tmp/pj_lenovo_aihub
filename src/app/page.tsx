@@ -1,9 +1,22 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/footer";
 import { FileText, Search, Handshake, ArrowRight } from "lucide-react";
+import { auth } from "@/lib/auth";
 
-export default function PublicTopPage() {
+const ROLE_ROUTES: Record<string, string> = {
+  ENTERPRISE: "/enterprise",
+  MEMBER: "/member",
+  ADMIN: "/admin",
+};
+
+export default async function PublicTopPage() {
+  const session = await auth();
+  if (session?.user?.role) {
+    redirect(ROLE_ROUTES[session.user.role] || "/login");
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header - same gradient as authenticated pages */}
