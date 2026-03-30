@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
+import { logoutAction } from "@/actions/auth";
 
 type NavItem = { label: string; href: string };
 
@@ -105,7 +105,7 @@ export function Header({ userName, organizationName, role }: HeaderProps) {
                 </div>
               </div>
               <DropdownMenuItem
-                onClick={() => signOut({ callbackUrl: "/login" })}
+                onClick={async () => { await logoutAction(); window.location.href = "/login"; }}
                 className="text-brand-red cursor-pointer"
               >
                 <LogOut className="w-4 h-4 mr-2" />

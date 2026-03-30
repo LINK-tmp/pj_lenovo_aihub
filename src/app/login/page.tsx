@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { loginAction } from "@/actions/auth";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,14 +21,10 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const result = await signIn("credentials", {
-        email: formData.get("email"),
-        password: formData.get("password"),
-        redirect: false,
-      });
+      const result = await loginAction(formData);
 
-      if (result?.error) {
-        setError("メールアドレスまたはパスワードが正しくありません");
+      if (!result.success) {
+        setError(result.error || "ログインに失敗しました");
         setLoading(false);
       } else {
         router.push("/");
