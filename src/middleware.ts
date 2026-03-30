@@ -19,7 +19,7 @@ export async function middleware(req: NextRequest) {
   ) {
     // Redirect logged-in users away from login page and "/" to their dashboard
     if (pathname === "/login" || pathname === "/") {
-      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+      const token = await getToken({ req, secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET });
       if (token?.role) {
         const role = token.role as string;
         return NextResponse.redirect(
@@ -31,7 +31,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // Protected routes - require auth
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
