@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,28 +8,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { loginAction } from "@/actions/auth";
 
 export default function LoginPage() {
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    const formData = new FormData(e.currentTarget);
-
-    try {
-      const result = await loginAction(formData);
-
-      if (result?.error) {
-        setError(result.error);
-        setLoading(false);
-      }
-    } catch {
-      setError("ログイン処理中にエラーが発生しました");
-      setLoading(false);
-    }
-  }
+  const [state, formAction, isPending] = useActionState(loginAction, null);
 
   return (
     <div
@@ -55,7 +34,7 @@ export default function LoginPage() {
             </div>
           </CardHeader>
           <CardContent className="px-8 pb-8">
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form action={formAction} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium">
                   メールアドレス
@@ -82,17 +61,17 @@ export default function LoginPage() {
                   className="h-11"
                 />
               </div>
-              {error && (
+              {state?.error && (
                 <p className="text-sm text-brand-red bg-brand-red/5 px-3 py-2 rounded-md">
-                  {error}
+                  {state.error}
                 </p>
               )}
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={isPending}
                 className="w-full h-11 gradient-brand-2 gradient-brand-2-hover text-white font-medium tracking-wide shadow-lg"
               >
-                {loading ? "ログイン中..." : "ログイン"}
+                {isPending ? "ログイン中..." : "ログイン"}
               </Button>
             </form>
             <p className="text-center text-xs text-brand-gray mt-6">

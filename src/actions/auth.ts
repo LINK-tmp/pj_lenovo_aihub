@@ -2,9 +2,8 @@
 
 import { signIn, signOut } from "@/lib/auth";
 import { AuthError } from "next-auth";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-export async function loginAction(formData: FormData) {
+export async function loginAction(_prevState: { error: string } | null, formData: FormData) {
   try {
     await signIn("credentials", {
       email: formData.get("email") as string,
@@ -12,14 +11,13 @@ export async function loginAction(formData: FormData) {
       redirectTo: "/",
     });
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
-    }
     if (error instanceof AuthError) {
       return { error: "メールアドレスまたはパスワードが正しくありません" };
     }
+    // NEXT_REDIRECT はここを通る — 再 throw して Next.js にリダイレクトさせる
     throw error;
   }
+  return null;
 }
 
 export async function logoutAction() {
