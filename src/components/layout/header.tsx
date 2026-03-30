@@ -105,7 +105,7 @@ export function Header({ userName, organizationName, role }: HeaderProps) {
                 </div>
               </div>
               <DropdownMenuItem
-                onClick={async () => { await logoutAction(); window.location.href = "/login"; }}
+                onClick={() => logoutAction()}
                 className="text-brand-red cursor-pointer"
               >
                 <LogOut className="w-4 h-4 mr-2" />

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +8,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { loginAction } from "@/actions/auth";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -23,12 +21,9 @@ export default function LoginPage() {
     try {
       const result = await loginAction(formData);
 
-      if (!result.success) {
-        setError(result.error || "ログインに失敗しました");
+      if (result?.error) {
+        setError(result.error);
         setLoading(false);
-      } else {
-        router.push("/");
-        router.refresh();
       }
     } catch {
       setError("ログイン処理中にエラーが発生しました");
